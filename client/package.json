@@ -1,0 +1,17 @@
+{
+  "name": "soco-ui-react",
+  "version": "0.0.1",
+  "engines": {
+    "node": "8.12.0"
+  },
+  "description": "Soco Open Source UI",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "heroku-postbuild": "echo Skip builds on Heroku",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

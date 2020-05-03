@@ -1,0 +1,19 @@
+/* General CSS */
+html, body {
+    font-family: 'Nunito Sans', sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+html {
+    --antd-wave-shadow-color: #918ef4
+}
+i {
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */
+}
+input:-internal-autofill-selected {
+    background-color: #e4e5ff !important;
+}

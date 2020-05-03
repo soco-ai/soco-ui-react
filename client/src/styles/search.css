@@ -1,0 +1,113 @@
+/* CSS mainly for Search Related Components */
+.search-faq-container {
+    margin: 60px 0 0;
+    width: 100%
+}
+.soco-init-search {
+    width: 500px
+}
+.soco-logo {
+    color: rgb(68, 72, 174, 0.75);
+    font-size: 50px;
+    font-weight: 900;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+.soco-main-search {
+    width: 100%
+}
+.soco-search-container {
+    font-family: 'Nunito Sans', sans-serif;
+    width: 100%
+}
+
+@media (min-width: 768px) {
+    .search-box-main {
+        border-radius: 25px;
+        display: block;
+        font-size: 13px;
+        margin: 30px auto 0;
+        width: 800px;
+    }
+    .search-box-sub {
+        border-radius: 25px;
+        height: 42px;
+        width: 100%;
+    }
+    .soco-image_logo {
+        width: 320px;
+    }
+    .soco-init-search_icon {
+        margin-right: 15px;
+        width: 50px;
+    }
+    .soco-main-search {
+        display: inline-block;
+        margin-top: 100px;
+    }
+    .soco-preview-page {
+        overflow-y: scroll;
+        scrollbar-width: none;
+    }
+    .soco-preview-page::-webkit-scrollbar {
+        display: none;
+    }
+    .soco-search-container {
+        margin-left: 30px
+    }
+}
+
+@media (max-width: 768px) {
+    .search-box-main {
+        border-radius: 25px;
+        display: block;
+        font-size: 11px;
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+    .search-box-sub {
+        border-radius: 25px;
+        height: 42px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+    .search-faq-container {
+        margin: 40px 0 20px;
+    }
+    .soco-image_logo {
+        width: 250px
+    }
+    .soco-init-search {
+        flex-direction: column;
+        width: 100%;
+    }
+    .soco-init-search_icon {
+        margin-right: 50px;
+        width: 50px;
+    }
+    .soco-init-search_item {
+        background: #FFFFFF;
+        border-radius: 10px;
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+        margin-bottom: 20px;
+        padding: 10px 30px;
+        width: 90%
+    }
+    .soco-logo {
+        font-size: 43px;
+        font-weight: 900;
+        justify-content: center;
+    }
+    .soco-main-search {
+        display: inline-block;
+        margin-top: 60px;
+    }
+    .soco-search-container {
+        display: flex;
+    }
+}
+

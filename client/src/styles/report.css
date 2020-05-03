@@ -1,0 +1,295 @@
+/* CSS mainly for Preview Result */
+.carousel-indicators>li{
+    background-color: #918ef4;
+}
+.kt_node {
+    cursor: pointer;
+}
+.kt_node circle {
+    fill: #fff;
+    stroke: #6f9ceb;
+    stroke-width: 3px;
+}
+.kt_node text {
+    font: 12px sans-serif;
+}
+.kt_link {
+    fill: none;
+    stroke: #d8d8d8;
+    stroke-width: 2px;
+}
+.modebar{
+    display: none !important;
+}
+.node-value-text {
+    color: #979797;
+    font-style: italic;
+}
+.report-card {
+    border: 1px solid #d8d8d8;
+    border-radius: 20px;
+}
+.report-codepane {
+    scrollbar-width: none;
+}
+.report-codepane::-webkit-scrollbar {
+    display: none;
+}
+.report-codepane > .react-json-view > .pretty-json-container.object-container {
+    height: 100%;
+    font-family: "Roboto Mono", Monaco, monospace;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.report-col {
+    scrollbar-width: none;
+}
+.report-col::-webkit-scrollbar {
+    display: none;
+}
+.report-keywords:hover {
+    color: #918ef4;
+    text-decoration: underline;
+}
+.report-tooltip {
+    align-items: center;
+    background: black;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    height: auto;
+    overflow: hidden;
+    padding: 10px 10px;
+    position: absolute;
+    text-align: center;
+    width: 150px;
+}
+.soco-action-cluster {
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    margin: 5px 10px;
+    padding: 15px 30px 
+}
+.soco-link {
+    color: #918ef4
+}
+.soco-link:hover {
+    color: #918ef4;
+    text-decoration: underline;
+}
+.soco-list {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.soco-list_item {
+    display: inline-block;
+}
+.soco-report {
+    background-color: white;
+    display: flex;
+    font-family: 'Nunito Sans', sans-serif;
+    height: 100vh;
+    position: fixed;
+    scrollbar-width: none;
+    width: 100vw;
+}
+.soco-report::-webkit-scrollbar {
+    display: none;
+}
+.soco-report-banner {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    scrollbar-width: none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+.soco-report-body {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    scrollbar-width: none;
+    width: 100%
+}
+.soco-report-body::-webkit-scrollbar {
+    display: none;
+}
+.soco-report-container {
+    background-color: white;
+    height: 100%;
+    flex-flow: row wrap;
+    scrollbar-width: none;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+.soco-report-container::-webkit-scrollbar {
+    display: none;
+}
+.soco-tabpane {
+    scrollbar-width: none;
+}
+.soco-tabpane::-webkit-scrollbar {
+    display: none;
+}
+.soco-url-list {
+    scrollbar-width: none;
+}
+.soco-url-list::-webkit-scrollbar {
+    display: none;
+}
+.soco-url-list_item {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#answer-0 {
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    margin: 5px 10px;
+    padding: 15px 20px
+}
+#report-knowledge-svg {
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+#report-knowledge-svg:not(.active):not(.ctrl) {
+    cursor: crosshair;
+}
+#report-knowledge-svg:not(.active):not(.ctrl) path.kg-link {
+    cursor: pointer;
+}
+#report-tooltip-text {
+    font-size: 14px;
+}
+#report-tooltip-text b {
+    color: #f7e600;
+}
+  
+/* Knowledge Graph */
+circle.kg-node {
+    cursor: pointer;
+}
+line.kg-link {
+    fill: none;
+    stroke: #d8d8d8;
+    stroke-width: 1.5px;
+}
+line.kg-link.co-occur {
+    fill: none;
+    stroke: #d8d8d8;
+    stroke-width: 2px;
+}
+marker#kg-marker_co-occur {
+    fill: #d8d8d8;
+}
+marker#kg-marker_end {
+    fill: #d8d8d8;
+}
+path.kg-link {
+    fill: none;
+    stroke: #d8d8d8;
+    stroke-width: 1.5px;
+}
+path.kg-link.co-occur {
+    stroke: #d8d8d8;
+    stroke-width: 2px;
+}
+path.kg-link.selected {
+    stroke-dasharray: 10,2;
+}
+path.kg-link.dragline {
+    pointer-events: none;
+}
+path.kg-link.hidden {
+    stroke-width: 0;
+}
+.link.kg-link {
+    fill: none;
+    stroke: #d8d8d8;
+    stroke-width: 1.5px;
+}
+.link.kg-link.co-occur {
+    stroke: #d8d8d8;
+    stroke-width: 2px;
+}
+
+@media (min-width: 768px) {
+    .report-keywords-container {
+        margin: 20px 0;
+    }
+    .report-meta {
+        width: 45%
+    }
+    .report-qa-answer {
+        font-size: 16px;
+    }
+    .soco-aggregate-search {
+        height: calc(100% - 70px);
+    }
+    .soco-aggregate-search-banner {
+        height: 70px;
+    }
+    .soco-expand {
+        font-size: 14px
+    }
+    .soco-left-col {
+        padding: 0 20px 0 170px;
+    }
+    #answer-0 {
+        font-size: 16px
+    }
+    #answer-0-content {
+        font-size: 17px
+    }
+    #answer-0-title {
+        font-size: 20px;
+        width: 80%
+    }
+}
+
+@media (max-width: 768px) {
+    .report-keywords-container {
+        margin: 20px 0 80px;
+    }
+    .report-meta {
+        width: 100%
+    }
+    .report-qa-answer {
+        font-size: 14px;
+    }
+    .soco-aggregate-search {
+        height: calc(100% - 110px);
+    }
+    .soco-aggregate-search-banner {
+        height: 110px;
+    }
+    .soco-expand {
+        font-size: 12px
+    }
+    .soco-left-col {
+        padding: 0 10px;
+    }
+    #answer-0 {
+        font-size: 14px;
+        padding: 15px
+    }
+    #answer-0-content {
+        font-size: 15px
+    }
+    #answer-0-title {
+        font-size: 18px;
+    }
+}
