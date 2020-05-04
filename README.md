@@ -90,7 +90,11 @@ After that, go to <http://localhost:3031> to check the training result.
 
 #### Revise the Project
 
-Users can edit the project in several ways, like tweaking React components, building database of users own and programming their APIs in Node.js (Use "serverUrl" in "client > src > configs.js" to make API call on frontend).
+Users can edit the project in several ways, like tweaking React components, building database of users own and programming their APIs in Node.js (Use ```serverUrl``` in ```client > src > configs.js``` to make API call on frontend).
+
+For users' task, they can change the example questions in ```client > src > configs.js``` as initial autocompletion. ```promoted_question``` will be the first selected question. ```promoted_data``` will be the first bunch of questions in autocompletion. Check the file and the screenshot below.
+
+![Screenshot of Autocompletion](demo/demo_4.png)
 
 Every time after users make changes on frontend, refresh the page to see the changes. Every time whe users make changes on the backend, restart the server to see the changes.
 
