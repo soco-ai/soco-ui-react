@@ -67,7 +67,7 @@ const getTaskAndData = (t) => {
         body: JSON.stringify(
             {
                 query: {key: process.env.QUERY_API_KEY},
-                fields: ["configs", "preview_url"]
+                fields: ["configs"]
             }
         )
     })
@@ -76,17 +76,6 @@ const getTaskAndData = (t) => {
         })
         .then(function (json) {
             if (json[0]) {
-                // Autocompletion
-                if (example.promoted_urls.includes(json[0].preview_url)) {
-                    t.setState({
-                        example_url: json[0].preview_url,
-                        search_value: example.promoted_questions[json[0].preview_url],
-                        dataSource: example.promoted_data[json[0].preview_url]
-                    })
-                } else {
-                    t.handleSearchChange("");
-                }
-
                 // Configs
                 let configs = json[0].configs.filter(c => c.key === "graph" || c.key === "tree" || c.key === "meta_dist"),
                     showKG = true, showKT = true, showMD = true;
@@ -111,8 +100,8 @@ class MainSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            example_url: "", search_value: "",
-            match_loading: false, dataSource: [], 
+            search_value: example.promoted_question,
+            match_loading: false, dataSource: example.promoted_data, 
             ifDist: true, ifTree: true, ifGraph: true, filter_drawer_visible: false, 
             filters: [], filters_visible: {}, filters_content: {}, showQuickButtons: false
         };
@@ -126,17 +115,7 @@ class MainSearch extends React.Component {
     handleSearchChange = (value) => {
         let self = this;
 
-        self.setState({search_value: value, dataSource: []});
-        if (!value) {
-            if (example.promoted_urls.includes(self.state.example_url)) {
-                self.setState({
-                    dataSource: example.promoted_data[self.state.example_url]
-                })
-                return
-            }
-        }
-
-        self.setState({ match_loading: true });
+        self.setState({ search_value: value, dataSource: [], match_loading: true });
         
         fetch(botmakerUrl + "/v1/search/autocomplete", {
             method: 'POST',

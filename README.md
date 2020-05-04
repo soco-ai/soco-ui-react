@@ -21,7 +21,7 @@ Users can get the source code of the SOCO preview pages, including the search ba
 
 ## Demo
 
-We insert one example task for users to use, [Covid-19 Papers](https://app.soco.ai/main/covid-19). This two links will direct users to the public webpages. Users can also play around with them locally.
+We insert one example task for users to use, [Covid-19 News](https://app.soco.ai/main/covid19news). This two links will direct users to the public webpages. Users can also play around with them locally.
 
 ```shell
 # Clone the repository
@@ -40,11 +40,11 @@ One more thing. Create .env file and add the following two environment varibales
 
 ```text
 BOT_URL=https://api.soco.ai
-QUERY_API_KEY=78f0299c-17b2-4851-83c6-06d9856de42a
+QUERY_API_KEY=b22fcf3f-dbb5-49ea-9864-526808f8fbdc
 SOCO_URL=https://app.soco.ai
 ```
 
-Now go to <http://localhost:3031> try it out! We post screenshots of the Covid-19 Papers task below.
+Now go to <http://localhost:3031> try it out! We post screenshots of the Covid-19 News task below.
 
 ![Screenshot of Main Search Page](demo/demo_1.png)
 

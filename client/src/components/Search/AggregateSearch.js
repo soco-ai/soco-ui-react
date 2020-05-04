@@ -197,7 +197,7 @@ const getTaskAndInit = (t, query, tab, filters_content) => {
       body: JSON.stringify(
         {
           query: {key: process.env.QUERY_API_KEY},
-          fields: ["configs", "preview_url"]
+          fields: ["configs"]
         }
       )
     })
@@ -207,15 +207,6 @@ const getTaskAndInit = (t, query, tab, filters_content) => {
       .then(function (json) {
         if (json[0]) {
           let ifQuery = false;
-
-          // Autocompletion
-          if (example.promoted_urls.includes(json[0].preview_url)) {
-            t.setState({
-              example_url: json[0].preview_url,
-              search_value: example.promoted_questions[json[0].preview_url],
-              dataSource: example.promoted_data[json[0].preview_url]
-            })
-          }
 
           // Configs
           let configs = json[0].configs.filter(c => c.key === "graph" || c.key === "tree" || c.key === "meta_dist");
@@ -248,8 +239,8 @@ class AggregateSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      example_url: "", lang: "en", 
-      query_value: "", search_value: "", dataSource: [],
+      lang: "en", 
+      query_value: "", search_value: example.promoted_question, dataSource: example.promoted_data,
       n_best: 120, ifEmbed: false, use_embed: true, keep_vectors: true, return_results: true,
       filters: [], target_answers: [], target_meta: [], keywords: [], keyword_pad: [],
       loading: true, match_loading: false,
@@ -323,18 +314,7 @@ class AggregateSearch extends React.Component {
   handleSearchChange = (value) => {
     let self = this;
 
-    self.setState({ search_value: value, dataSource: [] });
-    if (!value) {
-      if (example.promoted_urls.includes(self.state.example_url)) {
-        self.setState({
-            dataSource: example.promoted_data[self.state.example_url]
-        })
-        return
-      }
-    }
-
-    self.setState({match_loading: true});
-
+    self.setState({ search_value: value, dataSource: [], match_loading: true });
 
     fetch(botmakerUrl + "/v1/search/autocomplete", {
       method: 'POST',

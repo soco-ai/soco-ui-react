@@ -11,17 +11,13 @@ export const colors = [
     "#7EB2DD", "#EF767A", "#EEB868"
 ];
 export const example = {
-    promoted_urls: [ "covid-19" ],
-    promoted_questions: {
-        "covid-19": "What do we know about COVID-19 risk factors?"
-    },
-    promoted_data: {
-        "covid-19": [
-            {text: "What is known about transmission, incubation, and environmental stability of Covid-19?"},
-            {text: "What do we know about COVID-19 risk factors?"},
-            {text: "What do we know about virus genetics, origin, and evolution og Covid-19?"},
-            {text: "What do we know about non-pharmaceutical interventions for Covid-19?"},
-            {text: "What do we know about vaccines and therapeutics for Covid-19?"}
-        ]
-    }
+    promoted_question: "How many coronavirus cases in the world?",
+    promoted_data: [
+        {text: "How many coronavirus cases in the world?"},
+        {text: "Covid-19 medication update"},
+        {text: "How many cases have there been in the US?"},
+        {text: "How many deaths have there been in the US?"},
+        {text: "What did Trump say today?"},
+        {text: "What did CDC say?"}
+    ]
 }
