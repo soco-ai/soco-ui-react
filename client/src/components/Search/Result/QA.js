@@ -2,7 +2,6 @@ import React from 'react';
 import {Button, Icon, message, Pagination} from "antd";
 import {Table} from "react-bootstrap";
 import Code from "../Code";
-import ViewInDoc from "../ViewInDoc";
 import parse from 'html-react-parser';
 import {socoUrl} from "../../../configs";
 const moment = require('moment');
@@ -74,11 +73,8 @@ const Meta = ({t, item, i}) => (
         <UpdateTime item={item} />
       </div>
     </div> 
-    : <div style={{margin: "15px 0 10px", fontSize: "14px"}}>
-      <div className="soco-list">
-        <div className="soco-list_item" style={{width: "50%"}}><UpdateTime item={item} /></div>
-        <div className="soco-list_item" style={{width: "50%", textAlign: "right"}}><ViewInDoc t={t} item={item} meta={item.meta} /></div>
-      </div>
+    : <div style={{margin: "15px 0 10px", fontSize: "14px", textAlign: "left"}}>
+      <UpdateTime item={item} />
     </div>
 )
 
@@ -133,28 +129,13 @@ const MetaTable = ({t, item, meta, show_tables, i}) => (
         <tbody>
           {
             Object.keys(meta).map((m, j) => {
-              if (typeof meta[m] === "string" && meta[m] && m[0] !== "_")
-                if (m === "preview_url")
-                {
-                  return (
-                    <tr key={m + j.toString()}>
-                      <th scope="row">{m}</th>
-                      <td>
-                        <ViewInDoc 
-                          t={t} item={item} meta={meta}
-                        />
-                      </td>
-                    </tr>
-                  )
-                }
-                else {
-                  return (
-                    <tr key={m + j.toString()}>
-                      <th scope="row">{m}</th>
-                      <td>{meta[m]}</td>
-                    </tr>
-                  )
-                }
+              if (typeof meta[m] === "string" && meta[m] && m[0] !== "_" && m !== "preview_url")
+                return (
+                  <tr key={m + j.toString()}>
+                    <th scope="row">{m}</th>
+                    <td>{meta[m]}</td>
+                  </tr>
+                )
             })
           }
         </tbody>
@@ -272,16 +253,10 @@ class QA extends React.Component {
                         </div>
                     }
                     {
-                      item.hasOwnProperty("meta") && (item.meta.hasOwnProperty("URL") || item.meta.hasOwnProperty("preview_url")) 
-                      && <div className="soco-list">
-                        <div className="soco-list_item soco-url-list_item" style={{width: "70%"}}>
-                          {item.meta.hasOwnProperty("URL") && 
-                            <a href={item.meta["URL"]} style={{}} target="_blank" className="soco-link">{item.meta["URL"]}</a>}
-                        </div>
-                        <div className="soco-list_item" style={{width: "30%", textAlign: "right"}}>
-                          {window.innerWidth >= 768 && item.meta.hasOwnProperty("preview_url") && <ViewInDoc t={this} item={item} meta={item.meta}/>}
-                        </div>
-                      </div>
+                      item.hasOwnProperty("meta") && item.meta.hasOwnProperty("URL")
+                      && <div className="soco-url-list_item" style={{width: "70%"}}>
+                        <a href={item.meta["URL"]} style={{}} target="_blank" className="soco-link">{item.meta["URL"]}</a>
+                      </div> 
                     }
                     {item.hasOwnProperty("meta") && <Meta t={this} item={item} i={0} />}
                     <Action t={this} answer={item.a.value} i={0}/>
@@ -301,17 +276,10 @@ class QA extends React.Component {
                       </div>
                   }
                   {
-                    item.hasOwnProperty("meta") && (item.meta.hasOwnProperty("URL") || item.meta.hasOwnProperty("preview_url")) 
-                    && <div className="soco-list">
-                      <div className="soco-list_item soco-url-list_item" style={{width: "70%"}}>
-                        {item.meta.hasOwnProperty("URL") && 
-                          <a href={item.meta["URL"]} style={{}} target="_blank" className="soco-link">{item.meta["URL"]}</a>}
-                      </div>
-                      <div className="soco-list_item" style={{width: "30%", textAlign: "right", marginLeft: "15px"}}>
-                        {window.innerWidth >= 768 && item.meta.hasOwnProperty("preview_url") && 
-                        <ViewInDoc t={this} item={item} meta={item.meta} text={"View in Document"}/>}
-                      </div>
-                    </div>
+                    item.hasOwnProperty("meta") && item.meta.hasOwnProperty("URL")
+                    && <div className="soco-url-list_item" style={{width: "70%"}}>
+                      <a href={item.meta["URL"]} style={{}} target="_blank" className="soco-link">{item.meta["URL"]}</a>
+                    </div> 
                   }
                   {item.hasOwnProperty("meta") && <Meta t={this} item={item} i={(page - 1) * 10 + i} />}
                   <Action t={this} answer={item.a.value} i={(page - 1) * 10 + i}/>

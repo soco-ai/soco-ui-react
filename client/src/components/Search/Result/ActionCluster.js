@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button, Icon, message, Pagination, Tooltip} from "antd";
 import Code from "../Code";
-import ViewInDoc from "../ViewInDoc";
 import parse from 'html-react-parser';
 const moment = require('moment');
 
@@ -146,9 +145,7 @@ class ActionCluster extends React.Component {
                   </Tooltip>
                   <div className="soco-list_item soco-url-list_item" style={{width: "80%", fontSize: "16px"}}>
                     {this.props.answers[id].hasOwnProperty("meta") && 
-                      this.props.answers[id].meta.hasOwnProperty("preview_url")?
-                      <ViewInDoc t={this} item={this.props.answers[id]} meta={this.props.answers[id].meta} text={"View in Document"}/>
-                      : this.props.answers[id].meta.hasOwnProperty("URL")?
+                      this.props.answers[id].meta.hasOwnProperty("URL")?
                       <a href={this.props.answers[id].meta["URL"]} style={{color: "#918ef4"}} target="_blank" className="soco-link">
                         {this.props.answers[id].meta["URL"]}
                       </a> : null
