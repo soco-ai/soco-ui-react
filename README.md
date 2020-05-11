@@ -110,4 +110,4 @@ $ npm run prepublishOnly
 
 ## Copyright and License
 
-Copyright @ [SOCO.AI](https://www.soco.ai)
+Copyright @ [SOCO.AI](https://www.soco.ai). Code released under [the Apache license](LICENSE).
