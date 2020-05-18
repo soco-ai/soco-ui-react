@@ -1,6 +1,6 @@
 # SOCO UI React
 
-[![version](https://img.shields.io/github/package-json/v/SOCO.AI/soco-ui-react)](https://github.com/soco-ai/soco-ui-react)
+[![version](https://img.shields.io/github/package-json/v/soco-ai/soco-ui-react)](https://github.com/soco-ai/soco-ui-react)
 
 SOCO UI React is an open source web application built mainly with [React](https://facebook.github.io/react/), [Ant Design](https://ant.design/), [Bootstrap](http://getbootstrap.com/), [React Router](https://reacttraining.com/react-router/),
 [Redux](http://redux.js.org/), [Webpack](https://webpack.js.org/) and [Node.js](https://nodejs.org/en/). It is a bundle of the entire preview page of your pretrained SOCO tasks using [SOCO Python Package](https://docs.soco.ai) and [SOCO Dashboard](https://app.soco.ai).
