@@ -32,7 +32,7 @@ function getInit(t, showKG, showKT, showMD) {
                     // Sentiment Check
                     let sentimentCheck = [...filters];
                     sentimentCheck = sentimentCheck.filter(m => 
-                        !m.type.includes("_id") && m.type[0] !== "_"
+                        !m.type.includes("_id")
                     );
                     if (sentimentCheck.length === 0)
                         t.setState({ ifDist: false });
@@ -316,7 +316,6 @@ class MainSearch extends React.Component {
                                     <span className="soco-init-search_icon"><img src="pic/svg/tutorial.svg" /></span><span>How to Use Soco</span>
                                 </a>
                             </div>
-                            
                         </div>}
                     </div>
                 </div>
