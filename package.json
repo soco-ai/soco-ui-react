@@ -30,7 +30,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.3.13",
-    "bcrypt": "^3.0.6",
+    "bcrypt": ">=5.0.0",
     "blitzkrieg": "^1.0.0",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.5.0",
