@@ -62,7 +62,6 @@ class ComponentAnalysis extends React.Component {
         const {
             show_code
         } = this.state;
-        
         return (
             !this.props.loading && <div style={{
                 margin: "20px 0",
@@ -95,7 +94,7 @@ class ComponentAnalysis extends React.Component {
                       "aggs": {
                         "[VAR_NAME]": {"distribution": {}},
                       },
-                      "uid": "soco_core_dashboard_preview"
+                      "uid": "soco_preview_template"
                     }} 
                     python={"from soco import sentiment\nprint(QA.get_sentiment(" + this.props.query_value + "))"}
                 />}

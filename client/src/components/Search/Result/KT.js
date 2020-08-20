@@ -56,7 +56,7 @@ class KT extends React.Component {
                 "aggs": {
                   "[VAR_NAME]": {"knowledge_tree": { "size": 15 }},
                 },
-                "uid": "soco_core_dashboard_preview"
+                "uid": "soco_preview_template"
               }}
               python={"from soco import graph\nprint(graph.get_tree(" + this.props.query_value + "))"}
           />}

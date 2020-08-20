@@ -59,7 +59,7 @@ class KG extends React.Component {
                         "aggs": {
                             "[VAR_NAME]": {"knowledge_graph": { "size": 15 }},
                         },
-                        "uid": "soco_core_dashboard_preview"
+                        "uid": "soco_preview_template"
                     }}
                     python={"from soco import graph\nprint(graph.get_graph(" + this.props.query_value + "))"}
                 />}

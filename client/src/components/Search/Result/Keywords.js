@@ -21,13 +21,10 @@ class Keywords extends React.Component {
         show_code, keyword_pad
       } = this.state;
         return (
-            <div className="report-keywords-container" style={{
-                // display: "flex",
-                // flexDirection: "column"
-            }}>
+            <div className="report-keywords-container">
                 <div className={"soco-list"} style={{marginBottom: "10px", color: "#979797"}}>
                     <div style={{fontSize: "18px", display: "inline-block"}}>
-                        Keywords <span style={{fontSize: window.innerWidth >= 768 ? "15px" : "14px"}}>{this.props.keywords.length >= 100? "(100/" + this.props.keywords.length + ")" : "(" + this.props.keywords.length + ")"}</span>
+                        Hot Keywords
                     </div>
                     { window.innerWidth >= 768 && (
                         show_code? <div style={{display: "flex", justifyContent: "flex-end", alignItems: "center", cursor: "pointer"}} onClick={() => this.setState({show_code: false})}>
@@ -48,7 +45,7 @@ class Keywords extends React.Component {
                       "aggs": {
                         "[VAR_NAME]": {"keywords": {"size": 10}},
                       },
-                      "uid": "soco_core_dashboard_preview"
+                      "uid": "soco_preview_template"
                     }}
                     python={"from soco import keywords\nprint(keywords.get_lists(" + this.props.query_value + "))"}
                     marginBottom={"10px"}
@@ -58,6 +55,10 @@ class Keywords extends React.Component {
                         {this.props.keyword_pad.map((key, j) => 
                             <Carousel.Item key={j}>
                                 <Card className="report-card" style={{marginTop: "10px"}}>
+                                    <div className={"soco-list"} style={{marginBottom: "20px", fontSize: "17px", color: "#979797"}}>
+                                        <div className={"soco-list_item"}>Keyword</div>
+                                        <div className={"soco-list_item"}>Confidence Score</div>
+                                    </div>
                                     {this.props.keywords.slice(key, key + 10).map((item, index) =>
                                         <div key={j + index} className={"soco-list"} style={{marginBottom: index === 9? "20px" : "10px"}}>
                                             <div 

@@ -129,7 +129,7 @@ const MetaTable = ({t, item, meta, show_tables, i}) => (
         <tbody>
           {
             Object.keys(meta).map((m, j) => {
-              if (typeof meta[m] === "string" && meta[m] && m[0] !== "_" && m !== "preview_url")
+              if (typeof meta[m] === "string" && meta[m] && m !== "preview_url")
                 return (
                   <tr key={m + j.toString()}>
                     <th scope="row">{m}</th>
@@ -191,7 +191,7 @@ class QA extends React.Component {
           query: this.props.query_alue,
           response: item,
           feedback: answer,
-          user: "soco_core_dashboard_preview",
+          user: "soco_preview_template",
           query_api_key: process.env.QUERY_API_KEY
         }
       )
@@ -234,7 +234,7 @@ class QA extends React.Component {
               "n_best": 5,
               "query": this.props.query_value
             },
-            "uid": "soco_core_dashboard_preview"
+            "uid": "soco_preview_template"
           }}
           python={"from soco import QA\nprint(QA.get_answer(" + this.props.query_value + "))"}
         />}
@@ -266,9 +266,7 @@ class QA extends React.Component {
               )
             } else {
               return (
-                <div key={i} style={{
-                  marginBottom: "35px"
-                }} id={"answer-" + ((page - 1) * 10 + i).toString()} className="report-qa-answer">
+                <div key={i} style={{ marginBottom: "35px"}} id={"answer-" + ((page - 1) * 10 + i).toString()} className="report-qa-answer">
                   {
                     item.a.highlight_value.length > 0 &&
                       <div style={{marginBottom: "15px"}}>

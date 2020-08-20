@@ -45,24 +45,24 @@ class ActionCluster extends React.Component {
         {
           window.innerWidth >= 768 && (show_code? 
           <div className="soco-list" style={{justifyContent: "flex-end", textAlign: "right", marginBottom: "10px", color: "#979797"}} >
-          <div style={{display: "inline-block", marginTop: "5px", cursor: "pointer"}} onClick={() => this.setState({show_code: false})}><img src="pic/svg/less.svg" /></div>
-          <div style={{display: "inline-block", marginLeft: "10px", cursor: "pointer"}} onClick={() => this.setState({show_code: false})}>Hide Code Snippet </div>
+            <div style={{display: "inline-block", marginTop: "5px", cursor: "pointer"}} onClick={() => this.setState({show_code: false})}><img src="pic/svg/less.svg" /></div>
+            <div style={{display: "inline-block", marginLeft: "10px", cursor: "pointer"}} onClick={() => this.setState({show_code: false})}>Hide Code Snippet </div>
           </div> 
           : <div className="soco-list" style={{justifyContent: "flex-end", textAlign: "right", marginBottom: "20px", color: "#979797"}}>
-          <div style={{display: "inline-block", marginTop: "-5px", cursor: "pointer"}} onClick={() => this.setState({show_code: true})}><img src="pic/svg/more.svg" /></div>
-          <div style={{display: "inline-block", marginLeft: "10px", cursor: "pointer"}} onClick={() => this.setState({show_code: true})}>Show Code Snippet</div>
+            <div style={{display: "inline-block", marginTop: "-5px", cursor: "pointer"}} onClick={() => this.setState({show_code: true})}><img src="pic/svg/more.svg" /></div>
+            <div style={{display: "inline-block", marginLeft: "10px", cursor: "pointer"}} onClick={() => this.setState({show_code: true})}>Show Code Snippet</div>
           </div>)
         }
         { window.innerWidth >= 768 && show_code && <Code
             sql={{
-            "query": {
+              "query": {
                 "n_best": 5,
                 "query": this.props.query_value
-            },
-            "aggs": {
+              },
+              "aggs": {
                 "[VAR_NAME]": {"cluster": {}},
-            },
-            "uid": "soco_core_dashboard_preview"
+              },
+              "uid": "soco_preview_template"
             }}
             python={"from soco import ActionCluster\nprint(ActionCluster.get_answer(" + this.props.query_value + "))"}
         />}

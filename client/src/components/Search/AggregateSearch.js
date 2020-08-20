@@ -131,7 +131,7 @@ function getInit(t, tab, ifQuery) {
         meta_distribution = meta_distribution.concat(sentiments.category)
 
         meta_distribution = meta_distribution.filter(m => 
-          !m.type.includes("_id") && m.type[0] !== "_"
+          !m.type.includes("_id")
         );
         meta_distribution = meta_distribution.map(m => {
           m.labels = m.labels.slice(0, 18);
@@ -166,13 +166,14 @@ function getInit(t, tab, ifQuery) {
         loading: false,
         keywords, keyword_pad, sentiments, 
         meta_distribution,
-        tree: json.tree
+        tree: json.tree || {},
+        links: graph.links, nodes: graph.nodes
       })
       // Graphs
-      if (tab === "kg")
-        setTimeout(KnowledgeGraph(graph.links, graph.nodes, window.innerWidth * 0.6, "#report-knowledge-graph"), 1000);
       if (tab === "kt")
         setTimeout(KnowledgeTree(json.tree, window.innerWidth * 0.7, "#report-knowledge-tree"), 1000);
+      if (tab === "kg")
+        setTimeout(KnowledgeGraph(graph.links, graph.nodes, window.innerWidth * 0.6, "#report-knowledge-graph"), 1000);
     }
 
     /*** Filters ***/
@@ -243,7 +244,7 @@ class AggregateSearch extends React.Component {
       query_value: "", search_value: example.promoted_question, dataSource: example.promoted_data,
       n_best: 120, ifEmbed: false, use_embed: true, keep_vectors: true, return_results: true,
       filters: [], target_answers: [], target_meta: [], keywords: [], keyword_pad: [],
-      loading: true, match_loading: false,
+      loading: true, match_loading: false, selected_faq: [],
       answers:[], show_tables: [], a_likes: [], a_dislikes: [], 
       knowledge_graph: {graph: {nodes:[], links: []}, table: [], desc:[], tree:{}}, 
       sentiments:{}, meta_distribution: [], links: [], nodes: {}, tree: {},
@@ -353,7 +354,6 @@ class AggregateSearch extends React.Component {
       answers: [], show_tables: [],
       knowledge_graph: {graph: {nodes:[], links: []}, table: [], desc:[], tree: {}},
       links: [], nodes: {}, tree: {},
-      json_results: {},
       links: [],
       nodes: {},
       keyword_pad: []
@@ -398,10 +398,12 @@ class AggregateSearch extends React.Component {
         })
       };
 
-      fetch(socoUrl + '/api/soco-aggregate/' + process.env.QUERY_API_KEY, {
+      // fetch(socoUrl + '/api/soco-aggregate/' + process.env.QUERY_API_KEY, {
+      fetch(botmakerUrl + '/v1/search/query', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': process.env.QUERY_API_KEY
         },
         body: JSON.stringify(
           {
@@ -410,7 +412,7 @@ class AggregateSearch extends React.Component {
               n_best: self.state.n_best,
               query_args: query_args,
             },
-            uid: "soco_core_dashboard_preview",
+            uid: "soco_preview_template",
             aggs: aggs
           }
         )
@@ -421,13 +423,14 @@ class AggregateSearch extends React.Component {
         .then(function (json) {
           if (!json.hasOwnProperty("error")) {
             let keywords = [], keyword_pad = [], cluster_pad = [],
-              meta_distribution=[], tree={}, knowledge_graph={};
+              meta_distribution=[], tree={}, knowledge_graph={}, 
+              final_graph={links: [], nodes: {}};
 
             // Meta Dist
             if (json.agg_results.hasOwnProperty("meta_distribution")) {
               meta_distribution = json.agg_results.meta_distribution;
 
-              meta_distribution = meta_distribution.filter(m => !m.type.includes("_id") && m.type[0] !== "_")
+              meta_distribution = meta_distribution.filter(m => !m.type.includes("_id"))
               meta_distribution = meta_distribution.map(m => {
                 m.labels = m.labels.slice(0, 18);
                 m.values = m.values.slice(0, 18);
@@ -460,7 +463,7 @@ class AggregateSearch extends React.Component {
             // Knowledge Graph & Tree
             if (json.agg_results.hasOwnProperty("knowledge_graph")) {
               knowledge_graph = json.agg_results.knowledge_graph;
-              self.handleLinkAndNode(knowledge_graph);
+              final_graph = self.handleLinkAndNode(knowledge_graph);
             }
             if (json.agg_results.hasOwnProperty("knowledge_tree")) {
               tree = json.agg_results.knowledge_tree;
@@ -474,27 +477,30 @@ class AggregateSearch extends React.Component {
 
             // Cluster
             let cluster = json.agg_results.hasOwnProperty("cluster")? json.agg_results.cluster : {};
-            if (cluster.cluster.length < 40) {
-              let cluster_pad_length = Math.ceil(cluster.cluster.length / 10);
-              for (let i=0; i<cluster_pad_length; i++) {
-                cluster_pad.push(i * 10);
+            if (cluster.hasOwnProperty("cluster")) {
+              if (cluster.cluster.length < 40) {
+                let cluster_pad_length = Math.ceil(cluster.cluster.length / 10);
+                for (let i=0; i<cluster_pad_length; i++) {
+                  cluster_pad.push(i * 10);
+                }
+              } else {
+                cluster_pad = [0, 10, 20, 30, 40]
               }
-            } else {
-              cluster_pad = [0, 10, 20, 30, 40]
-            }
+            } else {}
 
             // Tab Control
             if (answers.length !== 0) {
-              self.setState({tab: "qa"})
+              self.setState({tab: "qa", no_result: false})
             } else if (Object.entries(cluster).length !== 0) {
-              self.setState({tab: "ac"})
+              self.setState({tab: "ac", no_result: false})
             } else if (meta_distribution.length !== 0) {
-              self.setState({tab: "md"})
+              self.setState({tab: "md", no_result: false})
+            } else if (Object.entries(tree).length !== 0) {
+              self.setState({tab: "kt", no_result: false})
+            } else if (final_graph.links.length !== 0 && Object.entries(final_graph.nodes).length !== 0) {
+              self.setState({tab: "kg", no_result: false})
             } else {
-              if (window.innerWidth >= 768)
-                self.setState({tab: "kt"})
-              else
-                self.setState({tab: "kw"})
+              self.setState({no_result: true})
             }
 
             self.setState({
@@ -502,11 +508,14 @@ class AggregateSearch extends React.Component {
               keywords, keyword_pad, tree,
               answers, show_tables, a_likes, a_dislikes,
               meta_distribution, cluster, cluster_pad,
-              current_cluster: "", prev_cluster: "", cluster_page: 1
+              current_cluster: "", prev_cluster: "", cluster_page: 1,
+              links: final_graph.links, nodes: final_graph.nodes
             });
             // Graphs
             if (self.state.tab === "kt")
               setTimeout(KnowledgeTree(tree, window.innerWidth * 0.7, "#report-knowledge-tree"), 1000);
+            if (self.state.tab === "kg")
+              setTimeout(KnowledgeGraph(final_graph.links, final_graph.nodes, window.innerWidth * 0.6, "#report-knowledge-graph"), 1000);
           } else {
             message.error(json.error.exception);
             self.handleInitState();
@@ -515,7 +524,7 @@ class AggregateSearch extends React.Component {
           }
         })
         .catch(e => {
-          console.log("Error", e);
+          console.log("Error", e.name + ": " + e.message);
           message.error(e.toString());
           self.handleInitState();
           self.setState({loading: false});
@@ -588,7 +597,6 @@ class AggregateSearch extends React.Component {
       link.source = nodes[link.source] || (nodes[link.source] = {name: link.source, "root": link.source === data.root || link.type === "co-occur"});
       link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
     });
-    this.setState({ links, nodes });
     return { links, nodes }
   }
   // Special Changes for Different Tabs
@@ -602,6 +610,7 @@ class AggregateSearch extends React.Component {
             KnowledgeGraph(this.state.links, this.state.nodes, window.innerWidth * 0.6, "#report-knowledge-graph")
           } else {
             let graph = this.handleLinkAndNode(this.state.knowledge_graph.graph);
+            this.setState({ links: graph.links, nodes: graph.nodes });
             if (!document.getElementById("report-knowledge-svg"))
               KnowledgeGraph(graph.links, graph.nodes, window.innerWidth * 0.6, "#report-knowledge-graph")
           }
@@ -683,7 +692,7 @@ class AggregateSearch extends React.Component {
     const {
       query_value, loading, keywords, keyword_pad, answers, show_tables, a_likes, a_dislikes,
       meta_distribution, links, nodes, tree, tab, filter_drawer_visible, filters, filters_visible, filters_content,
-      showKG, showKT, showMD, cluster, cluster_pad, current_cluster, prev_cluster, cluster_page
+      showKG, showKT, showMD, cluster, cluster_pad, current_cluster, prev_cluster, cluster_page, no_result
     } = this.state;
     return (
       <div className={"soco-report"} style={{fontFamily: "'Nunito Sans', sans-serif", overflow: "hidden"}}>
@@ -768,7 +777,8 @@ class AggregateSearch extends React.Component {
                     }} 
                     size="large"
                   >
-                  </Spin> : <StickyContainer style={{height: "100%"}}>
+                  </Spin> 
+                  : !no_result?<StickyContainer style={{height: "100%"}}>
                     <Tabs
                       className={"soco-tabs"}
                       activeKey={tab}
@@ -831,6 +841,7 @@ class AggregateSearch extends React.Component {
                       }
                     </Tabs>
                   </StickyContainer>
+                  : <div style={{fontSize: "18px", width: "100%", textAlign: "center", fontStyle: "italic", color: "#979797", margin: "10px 0 20px"}}>No Search Result</div>
                 }
               </Col>
               {/* Right Column */}

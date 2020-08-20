@@ -14,13 +14,11 @@ class ClusterValue extends React.Component {
       const {
       } = this.state;
         return (
-            <div className="report-keywords-container" style={{
-            }}>
+            <div className="report-keywords-container">
                 <div className={"soco-list"} style={{marginBottom: "10px", color: "#979797"}}>
                     <div style={{fontSize: "18px", display: "inline-block"}}>
                         Clusters <span style={{fontSize: "15px"}}>{this.props.cluster.cluster.length >= 50? "(50/" + this.props.cluster.cluster.length + ")" : "(" + this.props.cluster.cluster.length + ")"}</span>
                     </div>
-                    
                 </div>
                 {
                     <Carousel interval={null} indicators={true} controls={false}>
