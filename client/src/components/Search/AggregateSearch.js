@@ -421,6 +421,21 @@ class AggregateSearch extends React.Component {
           return response.json();
         })
         .then(function (json) {
+          // Handle Errors
+          if (json.hasOwnProperty("message")) {
+            console.log(json.message);
+            if (json.message.toLowerCase().includes("error")) {
+              if (json.message.toLowerCase().includes("empty value passed for a required argument 'index'"))
+                message.error("No search result due to empty index value. Please index first.")
+              else
+                message.error(json.message)
+              self.handleInitState();
+              self.setState({loading: false});
+              self.props.history.push('/main/' + self.state.preview_url);
+              return
+            }
+          }
+          // Handle if no error message case
           if (!json.hasOwnProperty("error")) {
             let keywords = [], keyword_pad = [], cluster_pad = [],
               meta_distribution=[], tree={}, knowledge_graph={}, 
